@@ -29,6 +29,7 @@ This tool uses ARGV to run. If you want help on what to pass in, type the -H or 
 
 To run tool go within the folder and type `node server.js -H`. This will tell you the options you need to run in order to run.
 
+Here is an example of running this tool.
 `node server.js -K API_KEY -E ENTERPRISE_ID -P PASSWORD_FOR_PRIVATE_KEY -S CLIENT_SECRET`
 
 BTW... **I haven't finished working on it**
