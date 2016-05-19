@@ -1,0 +1,27 @@
+{
+  "name": "cmd-line-create-token",
+  "version": "1.0.0",
+  "description": "Creates a token with arguements for a JWT",
+  "main": "server.js",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "cors": "^2.7.1",
+    "crypto": "0.0.3",
+    "express": "^4.13.4",
+    "http": "0.0.0",
+    "jsonwebtoken": "^5.7.0",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "box",
+    "token",
+    "api",
+    "JWT"
+  ],
+  "author": "Corey Ghilarducci",
+  "license": "MIT"
+}
