@@ -22,6 +22,8 @@ cmd-line-create-token
 	├── readme.md
 	└── server.js
 ```
+**Note:** make sure .pem are named the same as above.
+
 Remember to know your private key password. This password will need to be passed within the cmd-line to run the tool properly.
 
 ## Steps to Run
@@ -37,3 +39,10 @@ To run tool go within the folder and type `node server.js -H`. This will tell yo
 BTW... **I haven't finished working on it**
 
 Hopefully, we can make it easier to use in the future.
+
+##Common Errors
+Go into your computer settings and reset the time. Box's backend is picky about exact time. Your computer can be slightly off every so often.
+```
+{"error":"invalid_grant","error_description":"Please check the 'exp' claim."}
+```
+
