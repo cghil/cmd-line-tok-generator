@@ -41,8 +41,7 @@ BTW... **I haven't finished working on it**
 Hopefully, we can make it easier to use in the future.
 
 ##Common Errors
-Go into your computer settings and reset the time. Box's backend is picky about exact time. Your computer can be slightly off every so often.
 ```
 {"error":"invalid_grant","error_description":"Please check the 'exp' claim."}
 ```
-
+If this error is seen, Go into your computer settings and reset the time. Box's backend is picky about exact time. Your computer can be slightly off every so often.
