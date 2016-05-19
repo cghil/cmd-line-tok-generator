@@ -31,10 +31,10 @@ if ((argv.api_key || argv.K) && (argv.enterprise_id || argv.E) && (argv.passphra
 	console.log('This tool uses Box JWTs to ' + 'create access tokens for App Auth.');
 	console.log(' ')
 	console.log('These are the following options.'.underline);
-	console.log('--api_key'.blue + ' : API key for Box Platform');
-	console.log('--enterprise_id'.blue + ' : ID of the enterprise');
-	console.log('--passphrase'.blue + ' : secret for the JWT signing. Must match PEM');
-	console.log('--client_secret'.blue + ': found in the developer console');
+	console.log('-K or --api_key'.blue + ' : API key for Box Platform');
+	console.log('-E or --enterprise_id'.blue + ' : ID of the enterprise OR App User ID');
+	console.log('-P or --passphrase'.blue + ' : secret for the JWT signing. Must match PEM');
+	console.log('-S or --client_secret'.blue + ': found in the developer console');
 } else {
     console.log(' ');
     console.log('Unable to generate token. '.red + 'Please check arguements.') 
