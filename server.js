@@ -7,23 +7,34 @@ var express = require('express'),
     colors = require('colors'),
     argv = require('minimist')(process.argv.slice(2));
 
-// console.dir(argv);
-// console.log(argv.API);
-
 var sessionToken,
     accessToken;
 
-if ((argv.api_key || argv.K) && (argv.enterprise_id || argv.E) && (argv.passphrase || argv.P) && (argv.client_secret || argv.S)) {
+if (argv.user_id != undefined || argv.U != undefined) {
+    var user_id = argv.user_id || argv.U;
+} else {
+    var enterprise_id = argv.enterprise_id || argv.E;
+}
+
+if ((argv.api_key || argv.K) && (user_id || enterprise_id) && (argv.passphrase || argv.P) && (argv.client_secret || argv.S)) {
 	
+    var box_sub_type;
+
+    if (user_id != undefined){
+        box_sub_type = "user";
+    } else {
+        box_sub_type = "enterprise";
+    }
+
 	var api_key = argv.api_key || argv.K,
-		enterprise_id = argv.enterprise_id || argv.E,
+		ent_or_user_id = user_id || enterprise_id,
 		passphrase = argv.passphrase || argv.P,
 		client_secret = argv.client_secret || argv.S;
 
     var privateKey = fs.readFileSync('private_key.pem');
     var publicKey = fs.readFileSync('public_key.pem');
 
-    var accessToken = generateToken(api_key, enterprise_id, passphrase, client_secret);
+    var accessToken = generateToken(api_key, ent_or_user_id, box_sub_type, passphrase, client_secret);
     console.info('Access token is only good for 60 mins');
 
 } else if (argv.H || argv.help) {
@@ -32,9 +43,11 @@ if ((argv.api_key || argv.K) && (argv.enterprise_id || argv.E) && (argv.passphra
 	console.log(' ')
 	console.log('These are the following options.'.underline);
 	console.log('-K or --api_key'.blue + ' : API key for Box Platform');
-	console.log('-E or --enterprise_id'.blue + ' : ID of the enterprise OR App User ID');
+	console.log('-E or --enterprise_id'.blue + ' : ID of the enterprise');
+    console.log('-U or --user_id'.blue + ' : ID of the App User');
 	console.log('-P or --passphrase'.blue + ' : secret for the JWT signing. Must match PEM');
 	console.log('-S or --client_secret'.blue + ': found in the developer console');
+    console.log(' ');
 } else {
     console.log(' ');
     console.log('Unable to generate token. '.red + 'Please check arguements.') 
@@ -43,21 +56,22 @@ if ((argv.api_key || argv.K) && (argv.enterprise_id || argv.E) && (argv.passphra
 }
 
 // jwt_secret will be the passphrase from above
-function generateToken(API_token, ent_id, jwt_secret, client_secret) {
+function generateToken(API_token, ent_or_user_id, box_sub_type, jwt_secret, client_secret) {
      var API_token = API_token,
-     	ent_id = ent_id,
+     	ent_or_user_id = ent_or_user_id,
      	jwt_secret = jwt_secret,
-     	client_secret = client_secret;
+     	client_secret = client_secret
+        box_sub_type = box_sub_type;
 
-    ent_id = ent_id.toString();
+    ent_or_user_id = ent_or_user_id.toString();
     var expiringTime = generateExpiringTime();
 
     var sessionToken = crypto.randomBytes(20).toString('hex');
 
     var signed_token = jwt.sign({
         iss: API_token,
-        sub: ent_id,
-        box_sub_type: "enterprise",
+        sub: ent_or_user_id,
+        box_sub_type: box_sub_type,
         aud: "https://api.box.com/oauth2/token",
         jti: sessionToken,
         exp: expiringTime
@@ -85,7 +99,7 @@ function requestForAccesToken(signed_token, client_secret, API_token) {
     	if (error) throw new Error(error);
     	var body = JSON.parse(body);
     	var accessToken = body.access_token;
-        console.log(body)
+        console.log(body);
     	console.log(' ');
     	console.log(colors.red('Access Token : %s'), accessToken);
     	console.log(' ');
@@ -99,6 +113,5 @@ function generateExpiringTime() {
     currentDate = Math.floor((currentDate + 59000) / 1000);
     var expiringTime = currentDate;
     expiringTime = parseInt(expiringTime);
-    console.log(new Date(expiringTime * 1000))
     return expiringTime;
 };
