@@ -48,6 +48,9 @@ if ((argv.api_key || argv.K) && (user_id || enterprise_id) && (argv.passphrase |
     console.log('-P or --passphrase'.blue + ' : secret for the JWT signing. Must match PEM');
     console.log('-S or --client_secret'.blue + ': found in the developer console');
     console.log(' ');
+    console.log('If this is the first time using this tool make sure to have the right setup. Please go to the following site to read docs:');
+    console.log('https://github.com/cghil/cmd-line-app-users/blob/master/readme.md'.rainbow);
+    console.log(' ')
 } else {
     console.log(' ');
     console.log('Unable to generate token. '.red + 'Please check arguements.')
