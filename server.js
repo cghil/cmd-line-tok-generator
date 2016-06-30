@@ -76,7 +76,9 @@ function generateToken(API_token, ent_or_user_id, box_sub_type, jwt_secret, clie
         jti: sessionToken,
         exp: expiringTime
     }, { key: privateKey, passphrase: jwt_secret }, { algorithm: 'RS256', noTimestamp: true });
-    console.log(signed_token);
+    console.log("------------------------");
+    console.log('The JWT is the following:');
+    console.log(colors.blue(signed_token));
     console.log("------------------------");
     var boxResponse = requestForAccesToken(signed_token, client_secret, API_token);
 };
@@ -100,8 +102,6 @@ function requestForAccesToken(signed_token, client_secret, API_token) {
         if (error) throw new Error(error);
         var body = JSON.parse(body);
         var accessToken = body.access_token;
-        console.log(body);
-        console.log(' ');
         console.log(colors.red('Access Token : %s'), accessToken);
         console.log(' ');
     });
