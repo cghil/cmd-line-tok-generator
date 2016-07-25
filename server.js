@@ -35,7 +35,6 @@ if ((argv.api_key || argv.K) && (user_id || enterprise_id) && (argv.passphrase |
     var publicKey = fs.readFileSync('public_key.pem');
 
     var accessToken = generateToken(api_key, ent_or_user_id, box_sub_type, passphrase, client_secret);
-    console.info('Access token is only good for 60 mins');
 
 } else if (argv.H || argv.help) {
     console.log(' ');
@@ -63,8 +62,8 @@ function generateToken(API_token, ent_or_user_id, box_sub_type, jwt_secret, clie
     var API_token = API_token,
         ent_or_user_id = ent_or_user_id,
         jwt_secret = jwt_secret,
-        client_secret = client_secret
-    box_sub_type = box_sub_type;
+        client_secret = client_secret,
+        box_sub_type = box_sub_type;
 
     ent_or_user_id = ent_or_user_id.toString();
     var expiringTime = generateExpiringTime();
@@ -104,7 +103,11 @@ function requestForAccesToken(signed_token, client_secret, API_token) {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
         var body = JSON.parse(body);
+        console.log('JSON response from server'.green);
+        console.log(body);
         var accessToken = body.access_token;
+        console.log("------------------------");
+        console.log('Access token is only good for 60 mins');
         console.log(colors.red('Access Token : %s'), accessToken);
         console.log(' ');
     });

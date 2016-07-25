@@ -1,5 +1,5 @@
 {
-  "name": "cmd-line-create-token",
+  "name": "getTokenAppUserBox",
   "version": "1.0.0",
   "description": "Creates a token with arguements for a JWT",
   "main": "server.js",
@@ -14,7 +14,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [
     "box",
@@ -23,5 +24,13 @@
     "JWT"
   ],
   "author": "Corey Ghilarducci",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cghil/cmd-line-app-users.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cghil/cmd-line-app-users/issues"
+  },
+  "homepage": "https://github.com/cghil/cmd-line-app-users#readme"
 }
